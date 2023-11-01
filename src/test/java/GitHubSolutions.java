@@ -1,4 +1,5 @@
 import com.codeborne.selenide.Configuration;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
@@ -6,22 +7,21 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class GitHubSolutions {
 
-    @Test
-    void SearchSoftAssertions () {
-
+    @BeforeAll
+    static void beforeAll(){
         Configuration.pageLoadStrategy = "eager";
         Configuration.browserSize = "1920x1080";
-        Configuration.holdBrowserOpen = true;
+        Configuration.holdBrowserOpen = false;
+    }
+
+    @Test
+    void searchSoftAssertions () {
 
         open("https://github.com/");
-        $("li")
-                .sibling(0)
+        $("li").sibling(0)
                 .hover();
-        $("a[href='/enterprise']")
-                .click();
-        $("#hero-section-brand-heading")
-                .shouldHave(text("The AI-powered\n" +
-                "developer platform."));
+        $("a[href='/enterprise']").click();
+        $("#hero-section-brand-heading").shouldHave(text("The AI-powered developer platform."));
     }
 }
 
